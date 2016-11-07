@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>List MainChimp</title>
+    <style>
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+        textarea {
+            display: inline-block;
+            width: 25%;
+            margin-top: 25px;
+            height: 150px;
+            padding: 5px;
+            border-radius: 3px;
+            border: solid thin #ddd;
+        }
+        button {
+            display: block;
+            margin-top: 25px;
+            border-radius: 3px;
+            padding: 15px;
+            width: 25%;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <textarea id="input" type="text" placeholder="input"></textarea>
+        <button id="convert">Convert</button>
+        <textarea id="output" type="text" placeholder="output"></textarea>
+        <button id="clear">Restart</button>
+    </center>
+</body>
+
+<footer>
+    <script>
+        var input = document.getElementById('input'),
+            output = document.getElementById('output'),
+            convert = document.getElementById('convert');
+        
+        convert.addEventListener('mousedown', (event) => {
+            var data = input.value,
+                outputString;
+            data = data.split(', ');
+            for (var i = 0, max = data.length; i < max; i++) {
+                outputString += data[i] + '\n';
+            }
+            output.value = outputString;
+        });
+        
+    </script>
+</footer>
+
+</html>

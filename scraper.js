@@ -20,12 +20,11 @@ var host = {
     // areas to search
     area: [
         '/michigan',
-        '/california',
-        '/washington',
-        '/florida',
+        '/ohio',
+        '/indiana',
     ],
     // business keyword
-    keyword: '/restaurant',
+    keyword: '/electronics',
     // creates complete link
     search: function () {
         return host.url + host.area[build.currentLocation] + host.keyword;
@@ -60,6 +59,8 @@ var get = {
 function scrape(page) {
     // connects to page with casper
     casper.start(page, function () {
+        // set the page back to 1
+        build.currentPage = 1;
         // prints page being printed
         this.echo('\nSCAPING: ' + page);
         // gets all the links on the page
@@ -82,17 +83,15 @@ function scrape(page) {
                 }
             });
         }
-        // dumps emails to the screen
-        this.echo('\nSCAPED: ' + build.emails.length);
-        this.echo('DUMP: ' + build.emails.join(', '));
         // opens main page again
         casper.thenOpen(page, function () {
-            // prints page being loaded
-            this.echo('\nLOADING: ' + page);
+            // dumps emails to the screen
+            this.echo('\nSCAPED: ' + build.emails.length);
+            this.echo('DUMP: ' + build.emails.join(', '));
             // if a next btn exists
             if (this.exists('a.next')) {
                 // print message
-                this.echo('CONTINUE: Next button found');
+                this.echo('\nCONTINUE: Next button found');
                 // add one to the current page
                 build.currentPage = build.currentPage + 1;
                 // scape the next page
@@ -106,8 +105,6 @@ function scrape(page) {
                     this.echo('LOADING: Moving onto next location');
                     // go to next location
                     build.currentLocation = build.currentLocation + 1;
-                    // set the page back to 1
-                    build.currentPage = 1;
                     // scrape that location page
                     scrape(host.search());
                 } else {
