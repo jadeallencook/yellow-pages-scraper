@@ -19,12 +19,10 @@ var host = {
     url: 'http://yellowpages.com',
     // areas to search
     area: [
-        '/michigan',
-        '/ohio',
-        '/indiana',
+        '/michigan'
     ],
     // business keyword
-    keyword: '/electronics',
+    keyword: '/fishing',
     // creates complete link
     search: function () {
         return host.url + host.area[build.currentLocation] + host.keyword;
@@ -36,7 +34,7 @@ var get = {
     // gets links to page of businesses
     links: function () {
         // search for business links
-        var query = document.querySelectorAll('div.info h3.n a.business-name');
+        var query = document.querySelectorAll('div.info h2.n a.business-name');
         // return array of hrefs
         return Array.prototype.map.call(query, function (e) {
             return e.getAttribute('href');
@@ -59,8 +57,6 @@ var get = {
 function scrape(page) {
     // connects to page with casper
     casper.start(page, function () {
-        // set the page back to 1
-        build.currentPage = 1;
         // prints page being printed
         this.echo('\nSCAPING: ' + page);
         // gets all the links on the page
